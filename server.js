@@ -11,9 +11,12 @@ const gameRoutes = require('./routes/gameRoutes');
 
 // 3. Middlewares (funciones que se ejecutan antes de que lleguen a tus rutas)
 app.use(express.json()); // Permite a Express leer JSON en el cuerpo de las peticiones
+app.use(express.urlencoded({ extended: false }));
 app.use(cors()); // Habilita CORS para todas las rutas
 
+app.use('/api/users', require('./routes/userRoutes'));
 app.use('/api/games', gameRoutes);
+app.use('/api/reviews', require('./routes/reviewRoutes'));
 
 // 4. Conexión a MongoDB Atlas
 const MONGODB_URI = process.env.MONGODB_URI;
@@ -39,3 +42,8 @@ const PORT = process.env.PORT || 5000; // Usa el puerto definido en .env o el 50
 app.listen(PORT, () => {
     console.log(`Servidor GameTracker Backend escuchando en el puerto ${PORT}`);
 });
+// Ejemplo de ruta básica de prueba (opcional)
+app.get('/', (req, res) => {
+    res.send('API de GameTracker funcionando!');
+});
+
