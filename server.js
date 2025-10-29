@@ -6,10 +6,14 @@ const cors = require('cors'); // Para permitir peticiones desde el frontend
 
 // 2. Inicializar la aplicación Express
 const app = express();
+const gameRoutes = require('./routes/gameRoutes');
+
 
 // 3. Middlewares (funciones que se ejecutan antes de que lleguen a tus rutas)
 app.use(express.json()); // Permite a Express leer JSON en el cuerpo de las peticiones
 app.use(cors()); // Habilita CORS para todas las rutas
+
+app.use('/api/games', gameRoutes);
 
 // 4. Conexión a MongoDB Atlas
 const MONGODB_URI = process.env.MONGODB_URI;
